@@ -8,7 +8,7 @@ namespace subscription_watch.Models
         public int Id { get; set; }
         public DateTime ScheduledDate { get; set; }
         public ReminderStatus Status { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
         public DateTime ShownAt { get; set; }
         public NotificationType NotificationType { get; set; }
 

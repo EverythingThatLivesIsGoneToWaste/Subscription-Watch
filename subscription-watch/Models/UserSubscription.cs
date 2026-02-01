@@ -14,7 +14,7 @@ namespace subscription_watch.Models
         public int RemindDaysBefore { get; set; }
         public bool AutoRenew { get; set; }
         public string Notes { get; set; } = string.Empty;
-        public DateTime CreatedAt { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
 
         public int UserId { get; set; }
         public int SubscriptionPlanId { get; set; }
