@@ -11,7 +11,7 @@ namespace subscription_watch.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public UserRole Role { get; set; } = UserRole.User;
-        int DefaultRemindDaysBefore { get; set; }
-        DateTime CreatedAtUtc { get; set; }
+        public int DefaultRemindDaysBefore { get; set; }
+        public DateTime CreatedAtUtc { get; set; }
     }
 }
