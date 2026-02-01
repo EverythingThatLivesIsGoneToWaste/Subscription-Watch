@@ -6,7 +6,7 @@ namespace subscription_watch.Models
     public class SubscriptionPlan
     {
         public int Id { get; set; }
-        string Title { get; set; } = string.Empty;
+        public string Title { get; set; } = string.Empty;
         public string Description { get; set; } = string.Empty;
         public decimal DefaultPrice { get; set; }
         public Currency DefaultCurrency { get; set; }
