@@ -10,7 +10,7 @@ namespace subscription_watch.Models
         public string Description { get; set; } = string.Empty;
         public decimal DefaultPrice { get; set; }
         public Currency DefaultCurrency { get; set; }
-        public DateTime BillingPeriod { get; set; }
+        public BillingPeriod BillingPeriod { get; set; }
         public bool IsActive { get; set; }
 
         public int CategoryId { get; set; }
