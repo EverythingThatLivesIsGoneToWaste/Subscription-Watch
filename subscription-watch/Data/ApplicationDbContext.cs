@@ -139,7 +139,39 @@ namespace subscription_watch.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            // TODO: configure remaining entities
+            // SubscriptionPayment entity configuration
+            modelBuilder.Entity<SubscriptionPayment>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.Amount).IsRequired();
+
+                entity.Property(e => e.Currency).IsRequired().HasMaxLength(20).HasConversion<string>();
+
+                entity.Property(e => e.PaidDate).IsRequired();
+
+                entity.Property(e => e.PeriodStart).IsRequired();
+
+                entity.Property(e => e.PeriodEnd).IsRequired();
+
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(20).HasConversion<string>();
+            });
+
+            // Reminder entity configuration
+            modelBuilder.Entity<Reminder>(entity =>
+            {
+                entity.HasKey(e => e.Id);
+
+                entity.Property(e => e.ScheduledDate).IsRequired();
+
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(20).HasConversion<string>();
+
+                entity.Property(e => e.CreatedAtUtc).IsRequired();
+
+                entity.Property(e => e.ShownAt).IsRequired();
+
+                entity.Property(e => e.NotificationType).IsRequired().HasMaxLength(20).HasConversion<string>();
+            });
         }
     }
 }
