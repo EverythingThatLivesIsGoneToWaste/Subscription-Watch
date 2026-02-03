@@ -15,5 +15,7 @@ namespace subscription_watch.Models
 
         public int CategoryId { get; set; }
         public Category Category { get; set; } = new();
+
+        public List<UserSubscription> UserSubscriptions { get; set; } = [];
     }
 }

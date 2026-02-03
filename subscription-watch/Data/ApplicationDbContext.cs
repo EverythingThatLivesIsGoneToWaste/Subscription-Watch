@@ -42,6 +42,20 @@ namespace subscription_watch.Data
             modelBuilder.Entity<User>().ToTable(t => t.HasCheckConstraint
             ("CK_User_DefaultRemindDaysBefore", "DefaultRemindDaysBefore BETWEEN 1 AND 15"));
 
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.UserSubscriptions)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>()
+                .HasMany(e => e.Reminders)
+                .WithOne(e => e.User)
+                .HasForeignKey(e => e.UserId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
             // Category entity configuration
             modelBuilder.Entity<Category>(entity =>
             {
@@ -54,6 +68,13 @@ namespace subscription_watch.Data
 
                 entity.Property(e => e.Color).IsRequired().HasDefaultValue(0xFFadd2aa);
             });
+
+            modelBuilder.Entity<Category>()
+                .HasMany(e => e.SubscriptionPlans)
+                .WithOne(e => e.Category)
+                .HasForeignKey(e => e.CategoryId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             // SubscriptionPlan entity configuration
             modelBuilder.Entity<SubscriptionPlan>(entity =>
@@ -74,7 +95,12 @@ namespace subscription_watch.Data
                 entity.Property(e => e.IsActive).IsRequired();
             });
 
-            // TODO: set up foreign key constraints for SubscriptionPlan-Category
+            modelBuilder.Entity<SubscriptionPlan>()
+                .HasMany(e=>e.UserSubscriptions)
+                .WithOne(e=>e.SubscriptionPlan)
+                .HasForeignKey(e=>e.SubscriptionPlanId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             // UserSubscription entity configuration
             modelBuilder.Entity<UserSubscription>(entity =>
@@ -100,8 +126,18 @@ namespace subscription_watch.Data
                 entity.Property(e => e.CreatedAtUtc).IsRequired();
             });
 
-            // TODO: set up foreign key constraints for UserSubscription-User and
-            // UserSubscription-SubscriptionPlan
+            modelBuilder.Entity<UserSubscription>()
+                .HasMany(e => e.SubscriptionPayments)
+                .WithOne(e => e.UserSubscription)
+                .HasForeignKey(e => e.UserSubscriptionId)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<UserSubscription>()
+                .HasMany(e => e.Reminders)
+                .WithOne(e => e.UserSubscription)
+                .IsRequired()
+                .OnDelete(DeleteBehavior.Cascade);
 
             // TODO: configure remaining entities
         }

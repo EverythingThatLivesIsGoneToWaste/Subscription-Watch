@@ -13,5 +13,8 @@ namespace subscription_watch.Models
         public UserRole Role { get; set; } = UserRole.User;
         public int DefaultRemindDaysBefore { get; set; }
         public DateTime CreatedAtUtc { get; set; }
+
+        public List<UserSubscription> UserSubscriptions { get; set; } = [];
+        public List<Reminder> Reminders { get; set; } = [];
     }
 }

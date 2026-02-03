@@ -21,5 +21,8 @@ namespace subscription_watch.Models
 
         public User User { get; set; } = new();
         public SubscriptionPlan SubscriptionPlan { get; set; } = new();
+
+        public List<SubscriptionPayment> SubscriptionPayments { get; set; } = [];
+        public List<Reminder> Reminders { get; set; } = [];
     }
 }
