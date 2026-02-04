@@ -1,32 +1,28 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using subscription_watch.Data;
 using subscription_watch.Models;
-
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 
+// Register PostgresOptions
 builder.Services.Configure<PostgresOptions>(
     builder.Configuration.GetSection("Database"));
 
-var postgresOptions = builder.Configuration.GetSection("Database")
-    .Get<PostgresOptions>() ?? throw new InvalidOperationException("PostgreSQL configuration not found");
+var postgresOptions = builder.Configuration
+    .GetSection("Database")
+    .Get<PostgresOptions>();
 
-var connectionString = new NpgsqlConnectionStringBuilder
-{
-    Host = postgresOptions.Host,
-    Port = postgresOptions.Port,
-    Password = postgresOptions.Password,
-    Username = postgresOptions.Username,
-    Database = postgresOptions.Database,
-    SslMode = Enum.Parse<SslMode>(postgresOptions.SslMode, true),
-    Pooling = postgresOptions.Pooling
-}.ToString();
+string connectionString = postgresOptions?.BuildConnectionString()
+    ?? throw new InvalidOperationException("Database configuration is missing");
 
+Console.WriteLine($"\n\nConnection String: [{connectionString}]\n\n");
+
+// Register DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
     options.UseNpgsql(connectionString, npgsqlOptions =>
     {
         npgsqlOptions.EnableRetryOnFailure(
@@ -34,12 +30,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
             maxRetryDelay: TimeSpan.FromSeconds(15),
             errorCodesToAdd: null);
 
-        if (postgresOptions.IncludeErrorDetail)
+        if (postgresOptions?.IncludeErrorDetail == true)
         {
             options.EnableDetailedErrors();
         }
-    })
-    );
+    });
+});
 
 var app = builder.Build();
 

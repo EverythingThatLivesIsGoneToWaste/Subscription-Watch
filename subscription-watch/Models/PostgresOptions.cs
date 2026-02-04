@@ -1,4 +1,6 @@
-﻿namespace subscription_watch.Models
+﻿using Npgsql;
+
+namespace subscription_watch.Models
 {
     public class PostgresOptions
     {
@@ -10,5 +12,19 @@
         public string SslMode { get; set; } = "Prefer";
         public bool Pooling { get; set; } = true;
         public bool IncludeErrorDetail { get; set; } = false;
+
+        public string BuildConnectionString()
+        {
+            return new NpgsqlConnectionStringBuilder
+            {
+                Host = Host,
+                Port = Port,
+                Password = Password,
+                Username = Username,
+                Database = Database,
+                SslMode = Enum.Parse<SslMode>(SslMode, true),
+                Pooling = Pooling
+            }.ToString();
+        }
     }
 }
