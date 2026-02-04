@@ -9,7 +9,7 @@ namespace subscription_watch.Models
         public decimal ActualPrice { get; set; }
         public Currency ActualCurrency { get; set; }
         public DateTime NextBillingDate { get; set; }
-        public DateTime LastBillingDate { get; set; }
+        public DateTime? LastBillingDate { get; set; }
         public SubscriptionStatus Status { get; set; }
         public int RemindDaysBefore { get; set; }
         public bool AutoRenew { get; set; }
