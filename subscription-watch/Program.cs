@@ -18,8 +18,6 @@ var postgresOptions = builder.Configuration
 string connectionString = postgresOptions?.BuildConnectionString()
     ?? throw new InvalidOperationException("Database configuration is missing");
 
-Console.WriteLine($"\n\nConnection String: [{connectionString}]\n\n");
-
 // Register DbContext
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {

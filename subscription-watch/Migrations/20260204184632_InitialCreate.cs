@@ -44,7 +44,6 @@ namespace subscription_watch.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Id);
-                    table.CheckConstraint("CK_User_DefaultRemindDaysBefore", "DefaultRemindDaysBefore BETWEEN 1 AND 15");
                 });
 
             migrationBuilder.CreateTable(

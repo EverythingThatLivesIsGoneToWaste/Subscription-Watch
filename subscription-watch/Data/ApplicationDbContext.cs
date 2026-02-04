@@ -38,10 +38,7 @@ namespace subscription_watch.Data
 
                 entity.Property(e => e.CreatedAtUtc).IsRequired();
             });
-
-            modelBuilder.Entity<User>().ToTable(t => t.HasCheckConstraint
-            ("CK_User_DefaultRemindDaysBefore", "DefaultRemindDaysBefore BETWEEN 1 AND 15"));
-
+            
             modelBuilder.Entity<User>()
                 .HasMany(e => e.UserSubscriptions)
                 .WithOne(e => e.User)

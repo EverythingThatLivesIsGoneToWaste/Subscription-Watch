@@ -12,7 +12,7 @@ using subscription_watch.Data;
 namespace subscription_watch.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20260204174508_InitialCreate")]
+    [Migration("20260204184632_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -234,10 +234,7 @@ namespace subscription_watch.Migrations
                     b.HasIndex("Login")
                         .IsUnique();
 
-                    b.ToTable("Users", t =>
-                        {
-                            t.HasCheckConstraint("CK_User_DefaultRemindDaysBefore", "DefaultRemindDaysBefore BETWEEN 1 AND 15");
-                        });
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("subscription_watch.Models.UserSubscription", b =>

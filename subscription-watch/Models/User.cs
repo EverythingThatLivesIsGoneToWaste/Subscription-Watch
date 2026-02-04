@@ -1,4 +1,5 @@
 ﻿using subscription_watch.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace subscription_watch.Models
 {
@@ -11,6 +12,7 @@ namespace subscription_watch.Models
         public string Email { get; set; } = string.Empty;
         public string Password { get; set; } = string.Empty;
         public UserRole Role { get; set; } = UserRole.User;
+        [Range(1, 15, ErrorMessage = "Напоминание: 1-15 дней")]
         public int DefaultRemindDaysBefore { get; set; }
         public DateTime CreatedAtUtc { get; set; }
 

@@ -231,10 +231,7 @@ namespace subscription_watch.Migrations
                     b.HasIndex("Login")
                         .IsUnique();
 
-                    b.ToTable("Users", t =>
-                        {
-                            t.HasCheckConstraint("CK_User_DefaultRemindDaysBefore", "DefaultRemindDaysBefore BETWEEN 1 AND 15");
-                        });
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("subscription_watch.Models.UserSubscription", b =>
