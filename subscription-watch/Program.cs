@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using subscription_watch.Data;
 using subscription_watch.Models;
+using subscription_watch.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -34,6 +35,8 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
         }
     });
 });
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 
