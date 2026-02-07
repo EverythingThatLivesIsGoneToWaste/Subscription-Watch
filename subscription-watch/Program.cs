@@ -1,7 +1,42 @@
+using Microsoft.EntityFrameworkCore;
+using subscription_watch.Data;
+using subscription_watch.Models;
+using subscription_watch.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+// Register PostgresOptions
+builder.Services.Configure<PostgresOptions>(
+    builder.Configuration.GetSection("Database"));
+
+var postgresOptions = builder.Configuration
+    .GetSection("Database")
+    .Get<PostgresOptions>();
+
+string connectionString = postgresOptions?.BuildConnectionString()
+    ?? throw new InvalidOperationException("Database configuration is missing");
+
+// Register DbContext
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+    options.UseNpgsql(connectionString, npgsqlOptions =>
+    {
+        npgsqlOptions.EnableRetryOnFailure(
+            maxRetryCount: 5,
+            maxRetryDelay: TimeSpan.FromSeconds(15),
+            errorCodesToAdd: null);
+
+        if (postgresOptions?.IncludeErrorDetail == true)
+        {
+            options.EnableDetailedErrors();
+        }
+    });
+});
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 var app = builder.Build();
 

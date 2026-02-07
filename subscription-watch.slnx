@@ -1,3 +1,4 @@
 <Solution>
+  <Project Path="Subscription-Watch.Tests/Subscription-Watch.Tests.csproj" Id="026d1285-900b-48f9-a6d0-b1673ea8e8cd" />
   <Project Path="subscription-watch/subscription-watch.csproj" />
 </Solution>
