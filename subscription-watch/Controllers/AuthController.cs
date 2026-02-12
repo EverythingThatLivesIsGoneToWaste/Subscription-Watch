@@ -47,12 +47,14 @@ namespace subscription_watch.Controllers
             {
                 _logger.LogWarning("Failed login attempt for {Login}", model.Login);
                 ModelState.AddModelError(string.Empty, ex.Message);
+                Response.StatusCode = 401;
                 return View(model);
             }
             catch (Exception ex)
             {
                 _logger.LogError(ex, "Error during login for {Login}", model.Login);
                 ModelState.AddModelError(string.Empty, "Internal server error");
+                Response.StatusCode = 500;
                 return View(model);
             }
         }
