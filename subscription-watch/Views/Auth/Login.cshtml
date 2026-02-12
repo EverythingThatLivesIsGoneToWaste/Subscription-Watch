@@ -1,0 +1,22 @@
+﻿@{
+    ViewData["Title"] = "Login";
+}
+
+<div class="login-container">
+    <div class="modal-content">
+        <form method="post" asp-controller="Auth" asp-action="Login">
+
+            <div class="input-group">
+                <label for="inputLogin">Login</label>
+                <input type="text" id="inputLogin" name="Login" maxlength="100">
+            </div>
+
+            <div class="input-group">
+                <label for="inputPassword">Password</label>
+                <input type="password" id="inputPassword" name="Password">
+            </div>
+
+            <button type="submit" id="SingInButton" class="sing-button">Sign In</button>
+        </form>
+    </div>
+</div>

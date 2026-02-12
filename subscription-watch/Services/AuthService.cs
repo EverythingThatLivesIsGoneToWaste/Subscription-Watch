@@ -23,7 +23,7 @@ namespace subscription_watch.Services
             if (user == null || !_passwordHasher.VerifyPassword(user.Password, password))
                 throw new UnauthorizedException("Invalid login or password");
 
-            throw new NotImplementedException();
+            return user;
         }
 
         public async Task LoginAsync(User user)
