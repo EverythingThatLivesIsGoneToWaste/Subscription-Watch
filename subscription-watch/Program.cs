@@ -46,6 +46,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
 
 // Authentication setup
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)

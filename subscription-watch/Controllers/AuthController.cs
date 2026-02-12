@@ -23,7 +23,7 @@ namespace subscription_watch.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            return View(new LoginDto());
+            return View();
         }
 
         [AllowAnonymous]
@@ -43,10 +43,10 @@ namespace subscription_watch.Controllers
 
                 return RedirectToAction("Index", "Dashboard");
             }
-            catch (UnauthorizedException ex)
+            catch (UnauthorizedException)
             {
                 _logger.LogWarning("Failed login attempt for {Login}", model.Login);
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, "Invalid login or password");
                 Response.StatusCode = 401;
                 return View(model);
             }
