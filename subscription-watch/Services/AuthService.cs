@@ -3,21 +3,25 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using subscription_watch.Models;
 using subscription_watch.Repositories;
+using subscription_watch.Exceptions;
 using System.Security.Claims;
 
 namespace subscription_watch.Services
 {
     public class AuthService(
         IUserRepository userRepository,
+        IPasswordHasher passwordHasher,
         IHttpContextAccessor httpContextAccessor) : IAuthService
     {
         private readonly IUserRepository _userRepository = userRepository;
+        private readonly IPasswordHasher _passwordHasher = passwordHasher;
         private readonly IHttpContextAccessor _httpContextAccessor = httpContextAccessor;
 
         public async Task<User?> AuthenticateAsync(string login, string password)
         {
             var user = await _userRepository.GetUserByLoginAsync(login);
-            // Implement password authentication (hasher and comparing)
+            if (user == null || !_passwordHasher.VerifyPassword(user.Password, password))
+                throw new UnauthorizedException("Invalid login or password");
 
             throw new NotImplementedException();
         }
