@@ -4,6 +4,7 @@ function validateForm(e) {
     const errors = [];
     const login = document.getElementById("inputLogin").value.trim();
     const fullName = document.getElementById("inputFullName").value.trim();
+    const email = document.getElementById("inputEmail").value.trim();
     const password = document.getElementById("inputPassword").value;
     const confirm = document.getElementById("inputAgainPassword").value;
     const remindDaysBefore = document.getElementById("inputRemindDaysBefore").value;
@@ -19,6 +20,13 @@ function validateForm(e) {
         errors.push("Full name must be filled out");
     } else if (fullName.length < 2)
         errors.push("Full name must be at least 2 characters");
+
+    if (email !== "") {
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            errors.push("Please enter a valid email address");
+        }
+    }
 
     if (password === "") {
         errors.push("Password must be filled out");
