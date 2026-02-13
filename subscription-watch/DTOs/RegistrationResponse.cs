@@ -6,9 +6,8 @@ namespace subscription_watch.DTOs
     {
         public bool IsSuccess { get; set; }
         public RegistrationStatus Status { get; set; }
-        public string? Message { get; set; }
+        public string Message { get; set; } = string.Empty;
         public UserDto? User { get; set; }
-        public string[]? Errors { get; set; }
 
         public static RegistrationResponse Success(UserDto userDto)
         {
@@ -28,7 +27,6 @@ namespace subscription_watch.DTOs
                 IsSuccess = false,
                 Status = RegistrationStatus.LoginAlreadyExists,
                 Message = "This login is already taken",
-                Errors = ["login_already_exists"]
             };
         }
 
@@ -39,7 +37,6 @@ namespace subscription_watch.DTOs
                 IsSuccess = false,
                 Status = RegistrationStatus.InvalidLogin,
                 Message = "Login must be at least 3 characters long",
-                Errors = ["invalid_login_format"]
             };
         }
 
@@ -50,7 +47,6 @@ namespace subscription_watch.DTOs
                 IsSuccess = false,
                 Status = RegistrationStatus.InvalidPassword,
                 Message = "Password must be at least 6 characters long",
-                Errors = ["invalid_password_format"]
             };
         }
 
@@ -61,7 +57,6 @@ namespace subscription_watch.DTOs
                 IsSuccess = false,
                 Status = RegistrationStatus.EmailAlreadyExists,
                 Message = "This email is already taken",
-                Errors = ["email_already_exists"]
             };
         }
     }

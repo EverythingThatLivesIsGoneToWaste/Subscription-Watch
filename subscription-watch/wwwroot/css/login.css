@@ -24,10 +24,16 @@ html, body {
 main {
     flex: 1 0 auto;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     margin: 0;
     padding: 20px 0;
+}
+
+.text-danger {
+    color: rgb(179, 17, 49);
+    font-size: 20px;
 }
 
 form {

@@ -42,10 +42,8 @@ namespace subscription_watch.Controllers
                     return RedirectToAction("Login", "Auth");
                 }
 
-                foreach (var error in response.Errors ?? Array.Empty<string>())
-                {
-                    ModelState.AddModelError(string.Empty, response.Message);
-                }
+                ModelState.AddModelError(string.Empty, response.Message);
+                
                 return View(model);
             }
             catch (Exception ex)

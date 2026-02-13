@@ -1,4 +1,6 @@
-﻿@{
+﻿@using subscription_watch.DTOs
+
+@{
     ViewData["Title"] = "Registration";
 }
 
@@ -6,7 +8,9 @@
     <link rel="stylesheet" href="~/css/register.css" asp-append-version="true">
 }
 
-<form method="post" asp-controller="Register" asp-action="Index">
+@model RegisterDto
+
+<form id="registerForm" method="post" asp-controller="Register" asp-action="Index">
 
     <h1>Subscription Watch!</h1>
     <div class="input-group">
@@ -31,11 +35,15 @@
 
     <div class="input-group number">
         <label for="inputRemindDaysBefore">Remind me about subscription payments prior</label>
-        <input type="number" id="inputRemindDaysBefore" name="DefaultRemindDaysBefore">
+        <input type="number" id="inputRemindDaysBefore" name="DefaultRemindDaysBefore" value="3">
     </div>
 
     <button type="submit" id="signUpButton" class="signUp-button">Sign up</button>
 </form>
+
+<div id="serverErrorSummary" asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div id="clientErrorSummary" class="text-danger" style="display: none"></div>
 
 @section Scripts {
     <script src="~/js/register.js" asp-append-version="true"></script>

@@ -1,4 +1,6 @@
-﻿@{
+﻿@using subscription_watch.DTOs
+
+@{
     ViewData["Title"] = "Login";
 }
 
@@ -6,7 +8,9 @@
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true">
 }
 
-<form method="post" asp-controller="Auth" asp-action="Login">
+@model LoginDto
+
+<form id="loginForm" method="post" asp-controller="Auth" asp-action="Login">
 
     <h1>Subscription Watch!</h1>
     <div class="input-group">
@@ -21,6 +25,10 @@
 
     <button type="submit" id="signInButton" class="signIn-button">Sign In</button>
 </form>
+
+<div id="serverErrorSummary" asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+<div id="clientErrorSummary" class="text-danger" style="display: none"></div>
 
 @section Scripts {
     <script src="~/js/login.js" asp-append-version="true"></script>
