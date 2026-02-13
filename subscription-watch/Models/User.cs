@@ -9,7 +9,7 @@ namespace subscription_watch.Models
         public int Id { get; set; }
         public string Login { get; set; } = string.Empty;
         public string FullName { get; set; } = string.Empty;
-        public string Email { get; set; } = string.Empty;
+        public string? Email { get; set; }
         public string Password { get; set; } = string.Empty;
         public UserRole Role { get; set; } = UserRole.User;
         [Range(1, 15, ErrorMessage = "Напоминание: 1-15 дней")]
