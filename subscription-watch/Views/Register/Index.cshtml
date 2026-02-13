@@ -2,36 +2,41 @@
     ViewData["Title"] = "Registration";
 }
 
-<div class="registration-container">
-    <div class="modal-content">
-        <form method="post" asp-controller="Register" asp-action="Index">
+@section Styles {
+    <link rel="stylesheet" href="~/css/register.css" asp-append-version="true">
+}
 
-            <div class="input-group">
-                <label for="inputLogin">Your login</label>
-                <input type="text" id="inputLogin" name="Login" maxlength="100">
-            </div>
+<form method="post" asp-controller="Register" asp-action="Index">
 
-            <div class="input-group">
-                <label for="inputFullName">Your full name</label>
-                <input type="text" id="inputFullName" name="FullName">
-            </div>
-
-            <div class="input-group">
-                <label for="inputPassword">Create password</label>
-                <input type="password" id="inputPassword" name="Password">
-            </div>
-
-            <div class="input-group">
-                <label for="inputAgainPassword">Repeat password</label>
-                <input type="password" id="inputAgainPassword" name="Password">
-            </div>
-
-            <div class="input-group">
-                <label for="inputRemindDaysBefore">Remind me about subscriiption payments</label>
-                <input type="number" id="inputRemindDaysBefore" name="DefaultRemindDaysBefore">
-            </div>
-
-            <button type="submit" id="RegisterButton" class="sing-button">Register</button>
-        </form>
+    <h1>Subscription Watch!</h1>
+    <div class="input-group">
+        <label for="inputLogin">Your login</label>
+        <input type="text" id="inputLogin" name="Login" maxlength="100">
     </div>
-</div>
+
+    <div class="input-group">
+        <label for="inputFullName">Your full name</label>
+        <input type="text" id="inputFullName" name="FullName">
+    </div>
+
+    <div class="input-group">
+        <label for="inputPassword">Create password</label>
+        <input type="password" id="inputPassword" name="Password">
+    </div>
+
+    <div class="input-group">
+        <label for="inputAgainPassword">Repeat password</label>
+        <input type="password" id="inputAgainPassword">
+    </div>
+
+    <div class="input-group number">
+        <label for="inputRemindDaysBefore">Remind me about subscription payments prior</label>
+        <input type="number" id="inputRemindDaysBefore" name="DefaultRemindDaysBefore">
+    </div>
+
+    <button type="submit" id="signUpButton" class="signUp-button">Sign up</button>
+</form>
+
+@section Scripts {
+    <script src="~/js/register.js" asp-append-version="true"></script>
+}
