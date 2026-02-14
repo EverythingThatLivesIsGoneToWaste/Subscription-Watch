@@ -8,7 +8,7 @@ using Subscription_Watch.Tests.Fixtures;
 namespace Subscription_Watch.Tests.Integration
 {
     [Collection("PostgreSql")]
-    public class UserRepositoryTests : IClassFixture<PostgreSqlContainerFixture>, IAsyncLifetime
+    public class UserRepositoryTests : IAsyncLifetime
     {
         private readonly UserFixture _userFixture;
         private readonly PostgreSqlContainerFixture _containerFixture;

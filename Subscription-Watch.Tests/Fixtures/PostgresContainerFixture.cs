@@ -91,6 +91,6 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
 /// Collection definition for PostgreSQL tests
 /// </summary>
 [CollectionDefinition("PostgreSql")]
-public class SqlServerCollection : ICollectionFixture<PostgreSqlContainerFixture>
+public class PostgreSqlCollection : ICollectionFixture<PostgreSqlContainerFixture>
 {
 }
