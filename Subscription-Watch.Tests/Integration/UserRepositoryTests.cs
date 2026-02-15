@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using subscription_watch.Data;
 using subscription_watch.Enums;
 using subscription_watch.Models;
@@ -35,7 +36,7 @@ namespace Subscription_Watch.Tests.Integration
         {
             // Clear and seed database before each test
             await _dbContext.Database.EnsureDeletedAsync();
-            await _dbContext.Database.EnsureCreatedAsync();
+            await _dbContext.Database.MigrateAsync();
 
             await _userFixture.SeedAsync(_dbContext);
 
