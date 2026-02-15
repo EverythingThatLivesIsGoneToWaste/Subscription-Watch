@@ -66,10 +66,11 @@ namespace Subscription_Watch.Tests.Integration
 
             await _repository.AddUserAsync(user);
 
-            var userInDb = await _dbContext.Users.FindAsync(user.Id);
+            var userInDb = await _repository.GetUserByIdAsync(user.Id);
             Assert.NotNull(userInDb);
             Assert.Equal(user.Login, userInDb.Login);
             Assert.Equal(user.Email, userInDb.Email);
+            Assert.True(await _repository.UserExistsAsync(user.Login));
         }
 
         [Fact]
@@ -107,12 +108,14 @@ namespace Subscription_Watch.Tests.Integration
         [Fact]
         public async Task RemoveAsync_WhereUserValid_ShouldReturnNone()
         {
-            var userBeforeDelete = await _repository.GetUserByIdAsync(2);
+            var userId = _testUsers[0].Id;
+
+            var userBeforeDelete = await _repository.GetUserByIdAsync(userId);
             Assert.NotNull(userBeforeDelete);
 
             await _repository.RemoveUserAsync(userBeforeDelete);
 
-            var userAfterDelete = await _repository.GetUserByIdAsync(2);
+            var userAfterDelete = await _repository.GetUserByIdAsync(userId);
             var existsByLogin = await _repository.UserExistsAsync(userBeforeDelete.Login);
 
             Assert.Null(userAfterDelete); 
