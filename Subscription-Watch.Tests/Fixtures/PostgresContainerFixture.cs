@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using subscription_watch.Data;
 using subscription_watch.Repositories;
+using subscription_watch.Services;
 using Subscription_Watch.Tests.Models;
 using Testcontainers.PostgreSql;
 
@@ -64,6 +65,11 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
 
         // Registering dependencies (must match main project)
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
 
         return services.BuildServiceProvider();
     }
