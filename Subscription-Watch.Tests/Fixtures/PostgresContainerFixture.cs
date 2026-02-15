@@ -59,6 +59,8 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
     {
         var services = new ServiceCollection();
 
+        services.AddHttpContextAccessor();
+
         // Registering DbContext (same as main project)
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(ConnectionString));
