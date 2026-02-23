@@ -52,6 +52,12 @@ namespace subscription_watch.Repositories
                 .AnyAsync(u => u.Title.ToLower() == title.ToLower());
         }
 
+        public async Task UpdatePlanAsync(SubscriptionPlan plan)
+        {
+            _context.SubscriptionPlans.Update(plan);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task RemovePlanAsync(SubscriptionPlan plan)
         {
             _context.SubscriptionPlans.Remove(plan);

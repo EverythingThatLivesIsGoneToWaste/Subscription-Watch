@@ -5,6 +5,7 @@ using subscription_watch.Enums;
 using subscription_watch.Models;
 using subscription_watch.Repositories;
 using Subscription_Watch.Tests.Fixtures;
+using System.Numerics;
 
 namespace Subscription_Watch.Tests.Integration
 {
@@ -122,6 +123,26 @@ namespace Subscription_Watch.Tests.Integration
             var exists = await _repository.PlanExistsAsync(plan.Title);
 
             Assert.True(exists);
+        }
+
+        [Fact]
+        public async Task UpdateAsync_WhenFieldsValid_ShouldUpdatePlan()
+        {
+            var planId = _testSubscriptionPlans[0].Id;
+            var updatedDescription = "New Description";
+
+            var planBeforeUpdate = await _repository.GetPlanByIdAsync(planId);
+            Assert.NotNull(planBeforeUpdate);
+
+            planBeforeUpdate.Description = updatedDescription;
+
+            await _repository.UpdatePlanAsync(planBeforeUpdate);
+
+            var planAfterUpdate = await _repository.GetPlanByIdAsync(planId);
+
+            Assert.NotNull(planAfterUpdate);
+            Assert.Equal(updatedDescription, planAfterUpdate.Description);
+            Assert.Equal(planBeforeUpdate.Title, planAfterUpdate.Title);
         }
 
         [Fact]

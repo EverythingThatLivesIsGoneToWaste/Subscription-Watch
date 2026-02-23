@@ -10,6 +10,7 @@ namespace subscription_watch.Repositories
         Task<SubscriptionPlan?> GetPlanByIdAsync(int id);
         Task AddPlanAsync(SubscriptionPlan plan);
         Task<bool> PlanExistsAsync(string title);
+        Task UpdatePlanAsync(SubscriptionPlan plan);
         Task RemovePlanAsync(SubscriptionPlan plan);
     }
 }
