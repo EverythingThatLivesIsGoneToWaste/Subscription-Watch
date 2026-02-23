@@ -1,4 +1,5 @@
-﻿using subscription_watch.Data;
+﻿using BCrypt.Net;
+using subscription_watch.Data;
 using subscription_watch.Enums;
 using subscription_watch.Models;
 
@@ -15,7 +16,11 @@ namespace Subscription_Watch.Tests.Fixtures
                 Login = "SeaLard",
                 FullName = "Light Yagami",
                 Email = "IamJustice123@gmail.com",
-                Password = "1HJSF8SHF26FJKSOF0F211VV-D0JFASSJ75AQ",
+                Password = BCrypt.Net.BCrypt.EnhancedHashPassword(
+                    "strongpassword",
+                    HashType.SHA512,
+                    workFactor: 12
+                ),
                 Role = UserRole.User,
                 DefaultRemindDaysBefore = 3,
                 CreatedAtUtc = new DateTime(2025, 2, 12, 12, 45, 32).ToUniversalTime()

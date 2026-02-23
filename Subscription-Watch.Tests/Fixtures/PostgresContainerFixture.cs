@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using subscription_watch.Data;
 using subscription_watch.Repositories;
+using subscription_watch.Services;
 using Subscription_Watch.Tests.Models;
 using Testcontainers.PostgreSql;
 
@@ -58,12 +59,19 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
     {
         var services = new ServiceCollection();
 
+        services.AddHttpContextAccessor();
+
         // Registering DbContext (same as main project)
         services.AddDbContext<ApplicationDbContext>(options =>
             options.UseNpgsql(ConnectionString));
 
         // Registering dependencies (must match main project)
         services.AddScoped<IUserRepository, UserRepository>();
+
+        services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+        services.AddScoped<IAuthService, AuthService>();
+        services.AddScoped<IRegistrationService, RegistrationService>();
 
         return services.BuildServiceProvider();
     }
@@ -91,6 +99,6 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
 /// Collection definition for PostgreSQL tests
 /// </summary>
 [CollectionDefinition("PostgreSql")]
-public class SqlServerCollection : ICollectionFixture<PostgreSqlContainerFixture>
+public class PostgreSqlCollection : ICollectionFixture<PostgreSqlContainerFixture>
 {
 }

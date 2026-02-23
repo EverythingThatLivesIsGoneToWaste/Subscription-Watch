@@ -40,5 +40,10 @@ namespace subscription_watch.Repositories
             _context.Users.Remove(user);
             await _context.SaveChangesAsync();
         }
+
+        public Task<bool> EmailExistsAsync(string email)
+        {
+            return _context.Users.AnyAsync(u =>u.Email == email);
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using subscription_watch.Data;
 using subscription_watch.Enums;
 using subscription_watch.Models;
@@ -8,7 +9,7 @@ using Subscription_Watch.Tests.Fixtures;
 namespace Subscription_Watch.Tests.Integration
 {
     [Collection("PostgreSql")]
-    public class UserRepositoryTests : IClassFixture<PostgreSqlContainerFixture>, IAsyncLifetime
+    public class UserRepositoryTests : IAsyncLifetime
     {
         private readonly UserFixture _userFixture;
         private readonly PostgreSqlContainerFixture _containerFixture;
@@ -35,7 +36,7 @@ namespace Subscription_Watch.Tests.Integration
         {
             // Clear and seed database before each test
             await _dbContext.Database.EnsureDeletedAsync();
-            await _dbContext.Database.EnsureCreatedAsync();
+            await _dbContext.Database.MigrateAsync();
 
             await _userFixture.SeedAsync(_dbContext);
 
@@ -66,10 +67,11 @@ namespace Subscription_Watch.Tests.Integration
 
             await _repository.AddUserAsync(user);
 
-            var userInDb = await _dbContext.Users.FindAsync(user.Id);
+            var userInDb = await _repository.GetUserByIdAsync(user.Id);
             Assert.NotNull(userInDb);
             Assert.Equal(user.Login, userInDb.Login);
             Assert.Equal(user.Email, userInDb.Email);
+            Assert.True(await _repository.UserExistsAsync(user.Login));
         }
 
         [Fact]
@@ -107,12 +109,14 @@ namespace Subscription_Watch.Tests.Integration
         [Fact]
         public async Task RemoveAsync_WhereUserValid_ShouldReturnNone()
         {
-            var userBeforeDelete = await _repository.GetUserByIdAsync(2);
+            var userId = _testUsers[0].Id;
+
+            var userBeforeDelete = await _repository.GetUserByIdAsync(userId);
             Assert.NotNull(userBeforeDelete);
 
             await _repository.RemoveUserAsync(userBeforeDelete);
 
-            var userAfterDelete = await _repository.GetUserByIdAsync(2);
+            var userAfterDelete = await _repository.GetUserByIdAsync(userId);
             var existsByLogin = await _repository.UserExistsAsync(userBeforeDelete.Login);
 
             Assert.Null(userAfterDelete); 

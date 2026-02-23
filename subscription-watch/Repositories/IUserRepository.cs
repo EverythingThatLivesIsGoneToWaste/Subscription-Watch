@@ -9,5 +9,6 @@ namespace subscription_watch.Repositories
         Task AddUserAsync(User user);
         Task<bool> UserExistsAsync(string login);
         Task RemoveUserAsync(User user);
+        Task<bool> EmailExistsAsync(string email);
     }
 }

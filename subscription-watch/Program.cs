@@ -1,7 +1,9 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using subscription_watch.Data;
 using subscription_watch.Models;
 using subscription_watch.Repositories;
+using subscription_watch.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -36,7 +38,20 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
     });
 });
 
+builder.Services.AddHttpContextAccessor();
+
+// Add services and repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
+
+builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IRegistrationService, RegistrationService>();
+
+// Authentication setup
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options => options.LoginPath = "/Login");
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -51,6 +66,7 @@ if (!app.Environment.IsDevelopment())
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
