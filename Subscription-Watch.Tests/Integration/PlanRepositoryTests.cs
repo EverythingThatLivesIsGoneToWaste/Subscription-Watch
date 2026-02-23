@@ -5,7 +5,6 @@ using subscription_watch.Enums;
 using subscription_watch.Models;
 using subscription_watch.Repositories;
 using Subscription_Watch.Tests.Fixtures;
-using System.Numerics;
 
 namespace Subscription_Watch.Tests.Integration
 {

@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using subscription_watch.Data;
 using subscription_watch.Models;
-using System;
 
 namespace subscription_watch.Repositories
 {
