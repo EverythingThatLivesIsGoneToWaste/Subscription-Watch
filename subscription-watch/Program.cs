@@ -42,6 +42,7 @@ builder.Services.AddHttpContextAccessor();
 
 // Add services and repositories
 builder.Services.AddScoped<IUserRepository, UserRepository>();
+builder.Services.AddScoped<IPlanRepository, PlanRepository>();
 
 builder.Services.AddScoped<IPasswordHasher, PasswordHasher>();
 
