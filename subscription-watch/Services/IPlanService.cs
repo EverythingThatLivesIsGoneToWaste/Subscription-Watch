@@ -6,6 +6,7 @@ namespace subscription_watch.Services
     {
         Task CreatePlanAsync(PlanCreateDto dto);
         Task DeactivatePlanAsync(int id);
+        Task ActivatePlanAsync(int id);
         Task UpdatePlanAsync(int id, PlanUpdateDto dto);
         Task<List<PlanDto>> GetAllActivePlansAsync();
         Task<PlanDto> GetPlanByIdAsync(int id);

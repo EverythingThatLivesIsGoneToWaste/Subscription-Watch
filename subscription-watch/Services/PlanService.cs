@@ -44,6 +44,18 @@ namespace subscription_watch.Services
             await _planRepository.UpdatePlanAsync(plan);
         }
 
+        public async Task ActivatePlanAsync(int id)
+        {
+            var plan = await _planRepository.GetPlanByIdAsync(id)
+                ?? throw new PlanNotFoundException(id);
+
+            if (plan.IsActive)
+                throw new PlanAlreadyActiveException(plan.Title);
+
+            plan.IsActive = true;
+            await _planRepository.UpdatePlanAsync(plan);
+        }
+
         public async Task UpdatePlanAsync(int id, PlanUpdateDto dto)
         {
             var plan = await _planRepository.GetPlanByIdAsync(id)
@@ -93,6 +105,6 @@ namespace subscription_watch.Services
                 IsActive = plan.IsActive,
                 CategoryId = plan.CategoryId
             };
-        } 
+        }
     }
 }
