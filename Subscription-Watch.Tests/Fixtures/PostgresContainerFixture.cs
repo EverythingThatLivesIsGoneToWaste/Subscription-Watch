@@ -73,6 +73,7 @@ public class PostgreSqlContainerFixture : IAsyncLifetime
 
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<IRegistrationService, RegistrationService>();
+        services.AddScoped<IPlanService, PlanService>();
 
         return services.BuildServiceProvider();
     }
